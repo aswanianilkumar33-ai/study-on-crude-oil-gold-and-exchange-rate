@@ -1,4 +1,10 @@
-##Aim / Objectives
+## Time Series Overview
+
+![Time Series Plot for VECM](ts%20plot%20for%20vecm.png)
+
+*Crude oil, gold, and USD/INR exchange rate series used in the multivariate analysis.*
+
+## Aim / Objectives
 
 The broad aim of this study is to model and forecast the prices of crude oil, gold, and the USD/INR exchange rate for the Indian economy, and to examine how these three series are related to one another over time. The specific objectives are:
 
@@ -12,7 +18,7 @@ The broad aim of this study is to model and forecast the prices of crude oil, go
 
 **To compare the forecasting performance of classical time series models with machine learning models, and to assess whether the differences in accuracy are meaningful.
 
-##Theoretical Framework of Topic
+## Theoretical Framework of Topic
 
 The study draws on the following core statistical and econometric concepts:
 
@@ -30,7 +36,18 @@ The study draws on the following core statistical and econometric concepts:
 
 **Machine Learning Models: Random Forest, XGBoost, and Long Short-Term Memory (LSTM) neural networks were used as modern alternatives to classical models, to test whether they could forecast gold and the exchange rate more accurately.
 
-##Data Sources
+## Model Performance
+
+![Actual vs Forecasted](actualvsforecasted.png)
+
+*Comparison of actual values against model forecasts on the out-of-sample test data.*
+
+## Model Diagnostics
+
+![ACF and PACF](acf%20pacf.png)
+
+*Autocorrelation and partial autocorrelation plots used to identify model order and validate residuals.*
+## Data Sources
 
 The study uses four datasets, each drawn from an authoritative Indian government or exchange database:
 
@@ -42,7 +59,7 @@ The study uses four datasets, each drawn from an authoritative Indian government
 
 **USD/INR exchange rate (daily and monthly): From the historical data database on Investing.com — daily data from January 2020, and monthly data from April 2000, both to 2026.
 
-##Software Used
+## Software Used
 
 **All classical time series modelling — ARIMA, SARIMA, GARCH, the Johansen cointegration test, the VECM, Granger causality, and impulse response analysis — was carried out in R, using the forecast, tseries, urca, vars, and rugarch packages. The machine learning models (Random Forest, XGBoost, and LSTM) were implemented in Python using scikit-learn, XGBoost, and TensorFlow/Keras.
 
