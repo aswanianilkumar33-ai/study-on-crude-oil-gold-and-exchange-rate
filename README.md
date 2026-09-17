@@ -1,65 +1,128 @@
+# Time Series Analysis of Crude Oil Price, Gold Price and Exchange Rate
+
+**Modelling and forecasting crude oil, gold, and the USD/INR exchange rate for the Indian economy — classical econometrics vs. machine learning.**
+
+![R](https://img.shields.io/badge/R-276DC3?style=flat&logo=r&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
+![Status](https://img.shields.io/badge/status-completed-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-lightgrey)
+
+📄 **[Read the full dissertation (PDF)](FINALPROJECT.pdf)** — complete methodology, derivations, and results.
+
+---
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Objectives](#objectives)
+- [Theoretical Framework](#theoretical-framework)
+- [Data Sources](#data-sources)
+- [Methodology & Tools](#methodology--tools)
+- [Time Series Overview](#time-series-overview)
+- [Model Performance](#model-performance)
+- [Model Diagnostics](#model-diagnostics)
+- [Key Findings](#key-findings)
+- [Full Report](#-full-report)
+- [Repository Structure](#repository-structure)
+- [Author](#author)
+
+---
+
+## Overview
+
+This project models and forecasts three economically interlinked series — **crude oil price**, **gold price**, and the **USD/INR exchange rate** — and examines how they relate to one another over time. It combines classical econometric modelling (ARIMA, SARIMA, ETS, GARCH, VECM) with modern machine learning approaches (Random Forest, XGBoost, LSTM), and rigorously compares their forecasting performance using walk-forward validation.
+
+## Objectives
+
+1. Identify the most suitable time series model for forecasting the **monthly price of crude oil**, evaluated through out-of-sample forecast accuracy.
+2. Determine the best-performing forecasting model for the **daily price of gold** by comparing ARIMA and exponential smoothing (ETS) approaches.
+3. Identify the most appropriate model for forecasting the **daily USD/INR exchange rate**, assessed against naive and random-walk benchmarks.
+4. Examine the **long-run and short-run relationships** among crude oil, gold, and the exchange rate, and the direction of influence between them.
+5. Compare the forecasting performance of **classical time series models vs. machine learning models**, and assess whether differences in accuracy are meaningful.
+
+## Theoretical Framework
+
+| Concept | Purpose in this study |
+|---|---|
+| **Stationarity & Unit Root Testing** (ADF, KPSS) | Determine whether each series needed differencing before modelling |
+| **Box-Jenkins ARIMA/SARIMA** | Model each series from its own past values and forecast errors, using ACF/PACF and AIC/BIC |
+| **Exponential Smoothing (ETS)** | Benchmark forecasting approach that weights recent observations more heavily |
+| **GARCH(1,1), Student-t** | Capture volatility clustering in financial series |
+| **Johansen Cointegration & VECM** | Test for a stable long-run relationship across crude oil, gold, and the exchange rate |
+| **Granger Causality & Impulse Response** | Study the direction of influence and shock propagation between series |
+| **Random Forest, XGBoost, LSTM** | Modern ML alternatives tested against classical models for gold and exchange rate forecasting |
+
+## Data Sources
+
+All data was drawn from authoritative Indian government or exchange databases:
+
+| Series | Frequency | Source | Period | Observations |
+|---|---|---|---|---|
+| Crude oil price (Indian Basket, USD/barrel) | Monthly | PPAC, Ministry of Petroleum and Natural Gas | Apr 2000 – May 2026 | 314 |
+| Gold price (INR/10g) | Daily | National Stock Exchange of India (NSE) | Jan 2020 – May 2026 | 1,537 |
+| Gold price (INR/10g) | Monthly | Reserve Bank of India (RBI) | Apr 2000 – May 2026 | — |
+| USD/INR exchange rate | Daily & Monthly | Investing.com historical database | Daily from Jan 2020, Monthly from Apr 2000 | — |
+
+## Methodology & Tools
+
+| Task | Language / Packages |
+|---|---|
+| ARIMA, SARIMA, GARCH, Johansen test, VECM, Granger causality, IRF | **R** — `forecast`, `tseries`, `urca`, `vars`, `rugarch` |
+| Random Forest, XGBoost, LSTM | **Python** — `scikit-learn`, `XGBoost`, `TensorFlow`/`Keras` |
+
 ## Time Series Overview
 
-![Time Series Plot for VECM](ts%20plot%20for%20vecm.png)
+**Time Series Plot for VECM** — crude oil, gold, and USD/INR series used in the multivariate analysis.
 
-*Crude oil, gold, and USD/INR exchange rate series used in the multivariate analysis.*
-
-## Aim / Objectives
-
-The broad aim of this study is to model and forecast the prices of crude oil, gold, and the USD/INR exchange rate for the Indian economy, and to examine how these three series are related to one another over time. The specific objectives are:
-
-**To identify the most suitable time series model for forecasting the monthly price of crude oil, evaluated through out-of-sample forecast accuracy.
-
-**To determine the best-performing forecasting model for the daily price of gold by comparing ARIMA and exponential smoothing (ETS) approaches.
-
-**To identify the most appropriate model for forecasting the daily USD/INR exchange rate, assessed against naive and random-walk benchmarks.
-
-**To examine the long-run and short-run relationships among crude oil, gold, and the exchange rate, and the direction of influence between them.
-
-**To compare the forecasting performance of classical time series models with machine learning models, and to assess whether the differences in accuracy are meaningful.
-
-## Theoretical Framework of Topic
-
-The study draws on the following core statistical and econometric concepts:
-
-**Stationarity and Unit Root Testing: A time series is stationary if its statistical properties do not change over time. The Augmented Dickey-Fuller (ADF) and KPSS tests were used to check whether each series needed differencing before modelling.
-
-**Box-Jenkins ARIMA/SARIMA Framework: A widely used approach for modelling and forecasting a series based on its own past values and past forecast errors, identified using the autocorrelation and partial autocorrelation functions and information criteria (AIC/BIC).
-
-**Exponential Smoothing (ETS): An alternative forecasting approach that gives more weight to recent observations, used here as a benchmark against ARIMA.
-
-**GARCH Modelling: Since financial series often show periods of high and low volatility clustered together, a GARCH(1,1) model with a Student-t distribution was used to describe this time-varying risk.
-
-**Cointegration and the Vector Error Correction Model (VECM): Johansen's cointegration test was used to check whether crude oil, gold, and the exchange rate share a stable long-run relationship, and a VECM was used to study how each series adjusts back toward this equilibrium.
-
-**Granger Causality and Impulse Response Analysis: Used to study the direction of influence between the three series and how a shock to one series affects the others over time.
-
-**Machine Learning Models: Random Forest, XGBoost, and Long Short-Term Memory (LSTM) neural networks were used as modern alternatives to classical models, to test whether they could forecast gold and the exchange rate more accurately.
+<!-- Add plot image here, e.g.: -->
+![Time series plot](TS%20PLOT.png) 
 
 ## Model Performance
 
-![Actual vs Forecasted](actualvsforecasted.png)
+**Actual vs. Forecasted** — comparison of actual values against model forecasts on the out-of-sample test data.
 
-*Comparison of actual values against model forecasts on the out-of-sample test data.*
+<!-- Add forecast comparison plot here, e.g.: -->
+ ![Actual vs forecasted](actualvsforecasted.png) 
 
 ## Model Diagnostics
 
-![ACF and PACF](acf%20pacf.png)
+**ACF and PACF** — autocorrelation and partial autocorrelation plots used to identify model order and validate residuals.
 
-*Autocorrelation and partial autocorrelation plots used to identify model order and validate residuals.*
-## Data Sources
+<!-- Add diagnostic plots here, e.g.: -->
+ ![ACF/PACF](acf%20pacf.png)
 
-The study uses four datasets, each drawn from an authoritative Indian government or exchange database:
+## Key Findings
 
-**Crude oil price (monthly): Indian Basket crude oil price, in USD per barrel, from the Petroleum Planning and Analysis Cell (PPAC), Ministry of Petroleum and Natural Gas — April 2000 to May 2026 (314 observations).
+- Identified **ARIMA(2,1,1)** as the best-fitting model for monthly Indian crude oil prices, with residuals passing all standard diagnostic checks.
+- A simple **ETS Holt model** out-forecasts ARIMA for daily gold prices on held-out data; a **random walk with drift** is competitive for the USD/INR exchange rate.
+- Fitted **GARCH(1,1)** volatility models for all three series, revealing three distinct volatility signatures:
+  - **Crude oil** — reactive, non-persistent
+  - **Gold** — moderate persistence, fat tails
+  - **Exchange rate** — near-permanent persistence
+- Established, via **Johansen's test and a VECM**, a statistically significant long-run equilibrium relationship among crude oil, gold, and the exchange rate, with clearly defined adjustment dynamics and causal direction.
+- Through a rigorous **walk-forward comparison**, classical statistical models **outperformed** Random Forest, XGBoost, and LSTM for forecasting daily gold and exchange rate prices in this setting.
 
-**Gold price (daily): From the National Stock Exchange of India (NSE), in INR per 10 grams — January 2020 to May 2026 (1,537 observations).
+## 📄 Full Report
 
-**Gold price (monthly, for multivariate analysis): From the Reserve Bank of India (RBI) database, in INR per 10 grams — April 2000 to May 2026.
+The complete dissertation — including full derivations, code walkthroughs, diagnostic plots, and detailed results — is available here:
 
-**USD/INR exchange rate (daily and monthly): From the historical data database on Investing.com — daily data from January 2020, and monthly data from April 2000, both to 2026.
+**[📥 Download the full report (PDF)](FINALPROJECT.pdf)**
 
-## Software Used
+## Repository Structure
 
-**All classical time series modelling — ARIMA, SARIMA, GARCH, the Johansen cointegration test, the VECM, Granger causality, and impulse response analysis — was carried out in R, using the forecast, tseries, urca, vars, and rugarch packages. The machine learning models (Random Forest, XGBoost, and LSTM) were implemented in Python using scikit-learn, XGBoost, and TensorFlow/Keras.
+```
+.
+├── data/               # Raw and processed datasets
+├── R/                  # ARIMA, SARIMA, GARCH, VECM, Granger causality, IRF scripts
+├── python/             # Random Forest, XGBoost, LSTM models
+├── notebooks/          # Exploratory analysis and diagnostics
+├── report/             # Full dissertation PDF and supporting figures
+└── README.md
+```
 
+## Author
+
+**Aswani A**
+M.Sc. Statistics, University of Kerala
+
+---
